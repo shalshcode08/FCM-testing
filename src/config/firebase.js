@@ -16,7 +16,7 @@ const vapidKey = import.meta.env.VITE_VAPID_KEY;
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
-export const RequestForToken = async() => {
+export const requestForToken = async() => {
     try{
         const currentToken = await getToken(messaging, {
             vapidKey : vapidKey,
@@ -36,7 +36,7 @@ export const RequestForToken = async() => {
 
 export const onMessageListner = () => {
     new Promise((resolve)=>{
-        onmessage(messaging, (payload)=>{
+        onMessage(messaging, (payload)=>{
             resolve(payload);
         })
     })
