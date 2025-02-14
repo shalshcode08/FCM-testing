@@ -45,31 +45,8 @@ VITE_FIREBASE_APP_ID=your_app_id
 - `npm run preview` - Preview the production build
 - `npm run lint` - Run ESLint to check code quality
 
-## Project Structure
-
-```
-fcm-test/
-├── public/
-├── src/
-│   ├── assets/
-│   ├── App.jsx
-│   ├── App.css
-│   ├── main.jsx
-│   └── index.css
-├── .env
-├── .gitignore
-├── index.html
-├── package.json
-├── vite.config.js
-└── eslint.config.js
-```
-
 ## Resources
 
 - [React Documentation](https://react.dev)
 - [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/cloud-messaging)
 - [Vite Documentation](https://vitejs.dev)
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
