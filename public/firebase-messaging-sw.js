@@ -4,43 +4,26 @@
 importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js');
 
-const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-auth-domain",
-  projectId: "your-project-id",
-  storageBucket: "your-storage-bucket",
-  messagingSenderId: "your-messaging-sender-id",
-  appId: "your-app-id"
-};
+firebase.initializeApp ({
+  apiKey: import.meta.env.VITE_API_KEY,
+    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_APP_ID,
+    mesurementId: import.meta.env.VITE_MESUREMENT_ID
+});
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+const messaging = firebase.messaging();con
 
-const messaging = firebase.messaging();
-
-// Handle background messages
-messaging.onBackgroundMessage((payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+messaging.onBackgroundMessage((payload)=>{
+  console.log("service-worker : message recived ", payload);
 
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: '/firebase-logo.png', // Make sure this image exists in your public folder
-    badge: '/firebase-logo.png', // Optional: Add a badge for mobile notifications
-    click_action: payload.notification.click_action || '/' // Optional: Add a click action
-  };
+    body : payload.notification.body,
+    icon : payload.notification.image,
+  }
 
-  return self.registration.showNotification(notificationTitle, notificationOptions);
-});
-
-// Optional: Handle notification clicks
-self.addEventListener('notificationclick', function(event) {
-  event.notification.close();
-  
-  // This will open the app when the notification is clicked
-  event.waitUntil(
-    clients.openWindow('/')
-  );
-});
+  self.registration.showNotification(notificationTitle, notificationOptions);
+})
